@@ -1020,19 +1020,14 @@
      * Preencha os caminhos abaixo para inserir suas figuras.
      * Ex.: "assets/ovo.png"
      ***********************/
-    function setImagePaths(){
-      const paths = {
-        egg:   "",  // ex: "assets/ovo.png"
-        larva: "",  // ex: "assets/larva.png"
-        pupa:  "",  // ex: "assets/pupa.png"
-        adult: ""   // ex: "assets/adulto.png"
-      };
-      if (paths.egg)   document.getElementById("imgEgg").src = paths.egg;
-      if (paths.larva) document.getElementById("imgLarva").src = paths.larva;
-      if (paths.pupa)  document.getElementById("imgPupa").src = paths.pupa;
-      if (paths.adult) document.getElementById("imgAdult").src = paths.adult;
-    }
-
+    <script>
+  function setImagePaths(){
+    document.getElementById("imgEgg").src   = "./assets/ovo.png";
+    document.getElementById("imgLarva").src = "./assets/larva.png";
+    document.getElementById("imgPupa").src  = "./assets/pupa.png";
+    document.getElementById("imgAdult").src = "./assets/adulto.png";
+  }
+</script>
     /***********************
      * UTIL
      ***********************/
