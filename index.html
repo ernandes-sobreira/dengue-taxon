@@ -1,0 +1,1463 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Aedes aegypti — Taxonomia, Ciclo e Chaves (Plataforma Interativa)</title>
+  <meta name="theme-color" content="#0f172a"/>
+
+  <style>
+    :root{
+      --bg:#0b1220;
+      --card:rgba(255,255,255,.06);
+      --card2:rgba(255,255,255,.09);
+      --stroke:rgba(255,255,255,.12);
+      --txt:#eaf2ff;
+      --muted:rgba(234,242,255,.72);
+      --muted2:rgba(234,242,255,.55);
+      --good:#22c55e;
+      --warn:#fbbf24;
+      --bad:#ef4444;
+      --accent:#60a5fa;
+      --accent2:#a78bfa;
+      --shadow: 0 18px 40px rgba(0,0,0,.35);
+      --radius:18px;
+      --radius2:14px;
+      --max:1180px;
+    }
+
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      color:var(--txt);
+      background:
+        radial-gradient(900px 600px at 18% 10%, rgba(96,165,250,.18), transparent 55%),
+        radial-gradient(900px 600px at 80% 5%, rgba(167,139,250,.14), transparent 52%),
+        radial-gradient(1000px 700px at 60% 90%, rgba(34,197,94,.08), transparent 60%),
+        linear-gradient(180deg, #060a12, #0b1220 38%, #070b13);
+      overflow-x:hidden;
+    }
+
+    a{ color:inherit; text-decoration:none; }
+    button{ font:inherit; }
+
+    .topbar{
+      position:sticky; top:0; z-index:50;
+      backdrop-filter: blur(12px);
+      background: rgba(6,10,18,.72);
+      border-bottom: 1px solid var(--stroke);
+    }
+    .topbar .wrap{
+      max-width:var(--max);
+      margin:0 auto;
+      padding:12px 14px;
+      display:flex;
+      gap:10px;
+      align-items:center;
+      justify-content:space-between;
+    }
+
+    .brand{
+      display:flex; gap:10px; align-items:center; min-width: 220px;
+    }
+    .badge{
+      width:38px; height:38px; border-radius:12px;
+      background:
+        radial-gradient(12px 12px at 30% 30%, rgba(255,255,255,.45), transparent 55%),
+        linear-gradient(135deg, rgba(96,165,250,.85), rgba(167,139,250,.75));
+      box-shadow: var(--shadow);
+      display:grid; place-items:center;
+      border: 1px solid rgba(255,255,255,.22);
+    }
+    .badge span{ font-size:18px; filter: drop-shadow(0 6px 10px rgba(0,0,0,.35)); }
+    .brand .t{
+      display:flex; flex-direction:column; line-height:1.1;
+    }
+    .brand .t b{ font-weight:800; letter-spacing:.2px; }
+    .brand .t small{ color:var(--muted); font-size:12px; }
+
+    .actions{
+      display:flex; gap:8px; align-items:center; flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+    .pill{
+      display:inline-flex; gap:8px; align-items:center;
+      padding:9px 10px;
+      border-radius: 999px;
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,.05);
+      color: var(--txt);
+      cursor:pointer;
+      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+      user-select:none;
+    }
+    .pill:hover{ transform: translateY(-1px); background: rgba(255,255,255,.07); border-color: rgba(255,255,255,.18); }
+    .pill:active{ transform: translateY(0); }
+    .pill .dot{
+      width:8px; height:8px; border-radius:50%;
+      background: var(--accent);
+      box-shadow: 0 0 0 4px rgba(96,165,250,.16);
+    }
+    .kpi{
+      font-size:12px;
+      color: var(--muted);
+      padding:9px 12px;
+      border-radius:999px;
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,.04);
+      display:inline-flex; gap:8px; align-items:center;
+    }
+    .kpi b{ color:var(--txt); font-size:12px; }
+
+    .layout{
+      max-width:var(--max);
+      margin:0 auto;
+      padding:14px;
+      display:grid;
+      grid-template-columns: 320px 1fr;
+      gap:14px;
+      align-items:start;
+    }
+
+    .sidebar{
+      position:sticky; top:72px;
+      border-radius: var(--radius);
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,.04);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .sidehead{
+      padding:14px 14px 10px;
+      border-bottom:1px solid var(--stroke);
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,0));
+    }
+    .sidehead h2{
+      margin:0;
+      font-size:14px;
+      letter-spacing:.2px;
+    }
+    .sidehead p{
+      margin:6px 0 0;
+      color:var(--muted);
+      font-size:12px;
+      line-height:1.35;
+    }
+
+    .nav{
+      padding:10px;
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+    }
+    .nav a{
+      padding:10px 10px;
+      border-radius: 14px;
+      border:1px solid transparent;
+      background: rgba(255,255,255,.02);
+      color: var(--muted);
+      display:flex; gap:10px; align-items:center;
+      transition: background .12s ease, border-color .12s ease, color .12s ease, transform .12s ease;
+    }
+    .nav a:hover{
+      background: rgba(255,255,255,.06);
+      border-color: rgba(255,255,255,.12);
+      color: var(--txt);
+      transform: translateY(-1px);
+    }
+    .nav a.active{
+      background: rgba(96,165,250,.14);
+      border-color: rgba(96,165,250,.28);
+      color: var(--txt);
+    }
+    .nav .ico{
+      width:28px; height:28px; border-radius:10px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.05);
+      display:grid; place-items:center;
+      flex:0 0 auto;
+      font-size:14px;
+    }
+    .nav .lbl{
+      display:flex; flex-direction:column; line-height:1.15;
+    }
+    .nav .lbl b{ font-size:13px; color:var(--txt); }
+    .nav .lbl small{ font-size:11px; color:var(--muted2); }
+
+    .content{
+      display:flex;
+      flex-direction:column;
+      gap:14px;
+      min-width:0;
+    }
+
+    .hero{
+      border-radius: var(--radius);
+      border:1px solid var(--stroke);
+      background:
+        radial-gradient(900px 500px at 10% 10%, rgba(96,165,250,.18), transparent 55%),
+        radial-gradient(900px 500px at 90% 0%, rgba(167,139,250,.14), transparent 52%),
+        rgba(255,255,255,.04);
+      box-shadow: var(--shadow);
+      padding:16px;
+      overflow:hidden;
+      position:relative;
+    }
+    .hero h1{
+      margin:0;
+      font-size:20px;
+      letter-spacing:.2px;
+    }
+    .hero p{
+      margin:8px 0 0;
+      color: var(--muted);
+      line-height:1.45;
+      font-size:13px;
+      max-width: 70ch;
+    }
+    .chips{
+      margin-top:12px;
+      display:flex; flex-wrap:wrap; gap:8px;
+    }
+    .chip{
+      font-size:12px;
+      padding:7px 10px;
+      border-radius:999px;
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,.04);
+      color: var(--muted);
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:14px;
+    }
+
+    .card{
+      border-radius: var(--radius);
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,.04);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      min-width:0;
+    }
+    .card .hd{
+      padding:14px 14px 10px;
+      border-bottom:1px solid var(--stroke);
+      display:flex; justify-content:space-between; gap:10px; align-items:flex-start;
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,0));
+    }
+    .card .hd h3{
+      margin:0;
+      font-size:14px;
+      letter-spacing:.2px;
+    }
+    .card .hd small{
+      display:block;
+      margin-top:6px;
+      color: var(--muted);
+      font-size:12px;
+      line-height:1.35;
+    }
+    .card .bd{ padding:14px; }
+
+    .mini{
+      border-radius: var(--radius2);
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,.03);
+      padding:12px;
+    }
+
+    .list{
+      display:flex; flex-direction:column; gap:10px;
+      margin:0; padding:0; list-style:none;
+    }
+    .list li{
+      display:flex; gap:10px;
+      padding:10px;
+      border-radius: 14px;
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,.03);
+      align-items:flex-start;
+    }
+    .list .tag{
+      flex:0 0 auto;
+      width:30px; height:30px;
+      border-radius: 12px;
+      display:grid; place-items:center;
+      background: rgba(96,165,250,.14);
+      border:1px solid rgba(96,165,250,.24);
+      color: var(--txt);
+      font-size:13px;
+    }
+    .list b{ display:block; font-size:13px; }
+    .list span{ color: var(--muted); font-size:12px; line-height:1.35; display:block; margin-top:3px; }
+
+    .imgslot{
+      border-radius: var(--radius2);
+      border:1px dashed rgba(255,255,255,.22);
+      background: rgba(255,255,255,.03);
+      padding:12px;
+      display:grid;
+      gap:10px;
+    }
+    .imgslot .row{
+      display:flex; gap:10px; align-items:center; justify-content:space-between;
+      flex-wrap:wrap;
+    }
+    .imgslot .hint{
+      color: var(--muted);
+      font-size:12px;
+      line-height:1.35;
+    }
+    .imgslot .frame{
+      border-radius: 14px;
+      border:1px solid var(--stroke);
+      background: rgba(0,0,0,.22);
+      overflow:hidden;
+      min-height: 180px;
+      display:grid;
+      place-items:center;
+      position:relative;
+    }
+    .imgslot img{
+      width:100%;
+      height:auto;
+      display:block;
+      max-height: 520px;
+      object-fit:contain;
+      background: rgba(0,0,0,.12);
+    }
+    .imgslot .placeholder{
+      color: rgba(234,242,255,.65);
+      font-size:12px;
+      padding: 10px 12px;
+      text-align:center;
+      max-width: 56ch;
+    }
+
+    .kbd{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 11px;
+      padding:2px 6px;
+      border-radius: 8px;
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,.04);
+      color: rgba(234,242,255,.85);
+      display:inline-block;
+    }
+
+    .timeline{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:10px;
+    }
+    .step{
+      border-radius: 16px;
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,.03);
+      padding:12px;
+      display:flex;
+      gap:12px;
+      align-items:flex-start;
+    }
+    .step .num{
+      width:34px; height:34px;
+      border-radius: 14px;
+      display:grid; place-items:center;
+      background: rgba(167,139,250,.16);
+      border:1px solid rgba(167,139,250,.26);
+      flex:0 0 auto;
+      font-weight:800;
+      font-size:13px;
+    }
+    .step b{ display:block; font-size:13px; }
+    .step span{ display:block; margin-top:4px; color: var(--muted); font-size:12px; line-height:1.35; }
+
+    .quiz{
+      display:grid;
+      gap:12px;
+    }
+    .qcard{
+      border-radius: var(--radius2);
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,.03);
+      padding:12px;
+    }
+    .qtop{
+      display:flex; gap:10px; align-items:flex-start; justify-content:space-between;
+      margin-bottom:8px;
+      flex-wrap:wrap;
+    }
+    .qtitle{
+      display:flex; flex-direction:column; gap:4px;
+      min-width: 240px;
+    }
+    .qtitle b{ font-size:13px; }
+    .qtitle small{ color: var(--muted); font-size:12px; }
+    .qmeta{
+      display:flex; gap:8px; align-items:center; flex-wrap:wrap;
+      color: var(--muted);
+      font-size:12px;
+    }
+    .bar{
+      height:10px;
+      border-radius:999px;
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,.03);
+      overflow:hidden;
+      min-width: 180px;
+    }
+    .bar > div{
+      height:100%;
+      width:0%;
+      background: linear-gradient(90deg, rgba(96,165,250,.85), rgba(167,139,250,.75));
+    }
+    .opts{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:8px;
+      margin-top:10px;
+    }
+    .opt{
+      text-align:left;
+      border-radius: 14px;
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,.03);
+      padding:10px 10px;
+      color: var(--txt);
+      cursor:pointer;
+      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+    }
+    .opt:hover{ transform: translateY(-1px); background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.18); }
+    .opt[disabled]{ cursor:not-allowed; opacity:.75; transform:none; }
+    .opt.good{ border-color: rgba(34,197,94,.55); background: rgba(34,197,94,.14); }
+    .opt.bad{ border-color: rgba(239,68,68,.55); background: rgba(239,68,68,.12); }
+
+    .feedback{
+      margin-top:10px;
+      padding:10px;
+      border-radius:14px;
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,.03);
+      color: var(--muted);
+      font-size:12px;
+      line-height:1.4;
+    }
+    .feedback.good{ border-color: rgba(34,197,94,.40); background: rgba(34,197,94,.10); }
+    .feedback.bad{ border-color: rgba(239,68,68,.40); background: rgba(239,68,68,.09); }
+
+    .row2{
+      display:flex; gap:10px; align-items:center; justify-content:space-between;
+      flex-wrap:wrap;
+      margin-top:10px;
+    }
+    .btn{
+      border-radius: 14px;
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,.05);
+      color: var(--txt);
+      padding:10px 12px;
+      cursor:pointer;
+      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+      display:inline-flex; gap:8px; align-items:center;
+    }
+    .btn:hover{ transform: translateY(-1px); background: rgba(255,255,255,.07); border-color: rgba(255,255,255,.18); }
+    .btn.primary{
+      border-color: rgba(96,165,250,.38);
+      background: rgba(96,165,250,.16);
+    }
+    .btn.danger{
+      border-color: rgba(239,68,68,.35);
+      background: rgba(239,68,68,.10);
+    }
+
+    .kbdline{
+      margin-top:10px;
+      color: var(--muted2);
+      font-size:11px;
+      line-height:1.4;
+    }
+
+    .toast{
+      position:fixed;
+      right:14px;
+      bottom:14px;
+      z-index:100;
+      max-width:min(460px, calc(100vw - 28px));
+      border-radius: 16px;
+      border:1px solid var(--stroke);
+      background: rgba(6,10,18,.85);
+      box-shadow: var(--shadow);
+      padding:10px 12px;
+      display:none;
+      gap:10px;
+      align-items:flex-start;
+    }
+    .toast.show{ display:flex; animation: pop .18s ease; }
+    @keyframes pop{ from{ transform: translateY(8px); opacity:0; } to{ transform: translateY(0); opacity:1; } }
+    .toast .dot{
+      width:10px;height:10px;border-radius:50%;
+      background: var(--accent);
+      box-shadow: 0 0 0 4px rgba(96,165,250,.16);
+      margin-top:3px;
+      flex:0 0 auto;
+    }
+    .toast b{ display:block; font-size:12px; }
+    .toast span{ display:block; font-size:12px; color: var(--muted); margin-top:2px; line-height:1.35; }
+    .toast button{
+      margin-left:auto;
+      border:none;
+      background: transparent;
+      color: rgba(234,242,255,.75);
+      cursor:pointer;
+      padding:6px 8px;
+      border-radius:10px;
+    }
+    .toast button:hover{ background: rgba(255,255,255,.06); }
+
+    .foot{
+      color: var(--muted2);
+      font-size:11px;
+      line-height:1.5;
+      padding: 6px 2px 20px;
+      text-align:center;
+    }
+
+    /* Responsive */
+    @media (max-width: 980px){
+      .layout{ grid-template-columns: 1fr; }
+      .sidebar{ position:relative; top:auto; }
+      .topbar .wrap{ flex-wrap:wrap; }
+      .brand{ min-width:auto; }
+      .grid{ grid-template-columns: 1fr; }
+    }
+    @media (max-width: 520px){
+      .badge{ width:34px; height:34px; border-radius: 12px; }
+      .hero{ padding:14px; }
+      .card .hd, .card .bd{ padding:12px; }
+      .bar{ min-width: 140px; }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="topbar">
+    <div class="wrap">
+      <div class="brand">
+        <div class="badge" aria-hidden="true"><span>🦟</span></div>
+        <div class="t">
+          <b>Aedes aegypti — Plataforma</b>
+          <small>Taxonomia • Filogenia • Chave • Ciclo • Quiz</small>
+        </div>
+      </div>
+
+      <div class="actions">
+        <div class="kpi" title="Seu progresso é salvo no navegador (localStorage)">
+          <span>Progresso:</span> <b id="kpiProgress">0%</b>
+        </div>
+        <div class="kpi" title="Desempenho nos quizzes (média)">
+          <span>Quiz:</span> <b id="kpiQuiz">—</b>
+        </div>
+        <button class="pill" id="btnMarkRead" title="Marca a seção atual como lida">
+          <span class="dot"></span><span>Marcar como lida</span>
+        </button>
+        <button class="pill" id="btnReset" title="Limpa progresso e resultados do quiz">
+          <span class="dot" style="background: var(--bad); box-shadow: 0 0 0 4px rgba(239,68,68,.16);"></span><span>Reset</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="layout">
+    <aside class="sidebar" id="sidebar">
+      <div class="sidehead">
+        <h2>Navegação</h2>
+        <p>Clique nos módulos. No mobile, role normalmente — o menu continua aqui em cima.</p>
+      </div>
+      <nav class="nav" id="nav">
+        <a href="#inicio" data-sec="inicio" class="active">
+          <span class="ico">🏠</span>
+          <span class="lbl"><b>Início</b><small>Visão geral</small></span>
+        </a>
+        <a href="#identidade" data-sec="identidade">
+          <span class="ico">🧾</span>
+          <span class="lbl"><b>Identidade</b><small>Nome, distribuição, hábitos</small></span>
+        </a>
+        <a href="#taxonomia" data-sec="taxonomia">
+          <span class="ico">🧬</span>
+          <span class="lbl"><b>Taxonomia</b><small>Classificação</small></span>
+        </a>
+        <a href="#filogenia" data-sec="filogenia">
+          <span class="ico">🌿</span>
+          <span class="lbl"><b>Filogenia</b><small>Posição evolutiva</small></span>
+        </a>
+        <a href="#sistematica" data-sec="sistematica">
+          <span class="ico">🔎</span>
+          <span class="lbl"><b>Sistemática</b><small>Caracteres diagnósticos</small></span>
+        </a>
+        <a href="#chave" data-sec="chave">
+          <span class="ico">🗝️</span>
+          <span class="lbl"><b>Chave curta</b><small>Aedes × Culex × Anopheles</small></span>
+        </a>
+        <a href="#ciclo" data-sec="ciclo">
+          <span class="ico">⏳</span>
+          <span class="lbl"><b>Ciclo de vida</b><small>Linha do tempo</small></span>
+        </a>
+        <a href="#galeria" data-sec="galeria">
+          <span class="ico">🖼️</span>
+          <span class="lbl"><b>Galeria</b><small>Espaços para suas figuras</small></span>
+        </a>
+        <a href="#quizzes" data-sec="quizzes">
+          <span class="ico">🎯</span>
+          <span class="lbl"><b>Quizzes</b><small>Aprender praticando</small></span>
+        </a>
+      </nav>
+    </aside>
+
+    <section class="content">
+
+      <section class="hero" id="inicio" data-title="Início">
+        <h1>Plataforma interativa do <i>Aedes aegypti</i></h1>
+        <p>
+          Um “painel taxonômico” pronto para PC e celular: classificação, posição evolutiva,
+          caracteres diagnósticos, chave curta de identificação, ciclo de vida e quizzes.
+          <br><br>
+          <span class="kbd">Dica</span> Você pode inserir suas figuras nos espaços da galeria (sem texto dentro do desenho),
+          e usar o app em aula, oficina, ou divulgação científica.
+        </p>
+        <div class="chips" aria-label="tags">
+          <span class="chip">Metamorfose completa (holometábolo)</span>
+          <span class="chip">Vetores: dengue • zika • chikungunya</span>
+          <span class="chip">Urbano • antropofílico • diurno</span>
+          <span class="chip">Oviposição em recipientes</span>
+        </div>
+      </section>
+
+      <div class="grid">
+        <section class="card" id="identidade" data-title="Identidade">
+          <div class="hd">
+            <div>
+              <h3>Identidade da espécie</h3>
+              <small>O básico científico, curto e pronto para hotspots do seu app.</small>
+            </div>
+          </div>
+          <div class="bd">
+            <ul class="list">
+              <li>
+                <div class="tag">🧾</div>
+                <div>
+                  <b>Nome científico</b>
+                  <span><i>Aedes aegypti</i> (Linnaeus, 1762)</span>
+                </div>
+              </li>
+              <li>
+                <div class="tag">📍</div>
+                <div>
+                  <b>Associação ambiental</b>
+                  <span>Fortemente urbano; usa recipientes artificiais com água.</span>
+                </div>
+              </li>
+              <li>
+                <div class="tag">⏱️</div>
+                <div>
+                  <b>Atividade</b>
+                  <span>Predominantemente diurna; repousa em ambientes domiciliares.</span>
+                </div>
+              </li>
+              <li>
+                <div class="tag">🧪</div>
+                <div>
+                  <b>Importância epidemiológica</b>
+                  <span>Vetor de dengue, zika, chikungunya e febre amarela urbana.</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="card" id="taxonomia" data-title="Taxonomia">
+          <div class="hd">
+            <div>
+              <h3>Taxonomia (sistemática clássica)</h3>
+              <small>Classificação direta para uso no app.</small>
+            </div>
+          </div>
+          <div class="bd">
+            <div class="mini">
+              <div style="display:grid; gap:8px; font-size:12px; color:var(--muted); line-height:1.35;">
+                <div><b style="color:var(--txt)">Domínio:</b> Eukaryota</div>
+                <div><b style="color:var(--txt)">Reino:</b> Animalia</div>
+                <div><b style="color:var(--txt)">Filo:</b> Arthropoda</div>
+                <div><b style="color:var(--txt)">Classe:</b> Insecta</div>
+                <div><b style="color:var(--txt)">Ordem:</b> Diptera</div>
+                <div><b style="color:var(--txt)">Subordem:</b> Nematocera</div>
+                <div><b style="color:var(--txt)">Família:</b> Culicidae</div>
+                <div><b style="color:var(--txt)">Subfamília:</b> Culicinae</div>
+                <div><b style="color:var(--txt)">Gênero:</b> <i>Aedes</i></div>
+                <div><b style="color:var(--txt)">Espécie:</b> <i>Aedes aegypti</i></div>
+              </div>
+            </div>
+            <div class="kbdline">
+              Sugestão: se você quiser “modo aula”, dá para transformar isso em “árvore” (cards em cascata).
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <div class="grid">
+        <section class="card" id="filogenia" data-title="Filogenia">
+          <div class="hd">
+            <div>
+              <h3>Filogenia (posição evolutiva)</h3>
+              <small>Textos curtos, sem exagero, para guiar o usuário.</small>
+            </div>
+          </div>
+          <div class="bd">
+            <ul class="list">
+              <li>
+                <div class="tag">🌿</div>
+                <div>
+                  <b>Tipo de desenvolvimento</b>
+                  <span>Holometábolo: ovo → larva → pupa → adulto.</span>
+                </div>
+              </li>
+              <li>
+                <div class="tag">🧬</div>
+                <div>
+                  <b>Grupo próximo</b>
+                  <span>Outras espécies de <i>Aedes</i>, incluindo <i>Aedes albopictus</i>.</span>
+                </div>
+              </li>
+              <li>
+                <div class="tag">🏙️</div>
+                <div>
+                  <b>Traços adaptativos</b>
+                  <span>Alta adaptação ao ambiente urbano e recipientes artificiais.</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="card" id="sistematica" data-title="Sistemática">
+          <div class="hd">
+            <div>
+              <h3>Sistemática geral (caracteres diagnósticos)</h3>
+              <small>O que “entrega” que é <i>Aedes</i> e o que é <i>aegypti</i>.</small>
+            </div>
+          </div>
+          <div class="bd">
+            <ul class="list">
+              <li>
+                <div class="tag">🦟</div>
+                <div>
+                  <b>Adulto</b>
+                  <span>Escamas claras contrastantes; pernas com anéis; desenho em “lira” no tórax.</span>
+                </div>
+              </li>
+              <li>
+                <div class="tag">🐛</div>
+                <div>
+                  <b>Larva</b>
+                  <span>Aquática; corpo alongado; sifão respiratório; alimentação por filtragem.</span>
+                </div>
+              </li>
+              <li>
+                <div class="tag">🫧</div>
+                <div>
+                  <b>Pupa</b>
+                  <span>Aquática; forma de vírgula; trombetas respiratórias; não se alimenta.</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </section>
+      </div>
+
+      <section class="card" id="chave" data-title="Chave curta">
+        <div class="hd">
+          <div>
+            <h3>Chave diagnóstica curta (campo / ensino)</h3>
+            <small>Identificação rápida: <i>Culex</i> × <i>Anopheles</i> × <i>Aedes aegypti</i>.</small>
+          </div>
+        </div>
+        <div class="bd">
+          <div class="mini" style="display:grid; gap:10px;">
+            <div style="color:var(--muted); font-size:12px; line-height:1.45;">
+              <b style="color:var(--txt)">1.</b> Corpo marrom, sem padrão branco evidente → <b style="color:var(--txt)"><i>Culex</i></b><br>
+              <b style="color:var(--txt)">1’.</b> Escamas claras contrastantes (padrões brancos) → <b style="color:var(--txt)">2</b>
+            </div>
+            <div style="color:var(--muted); font-size:12px; line-height:1.45;">
+              <b style="color:var(--txt)">2.</b> Postura em repouso inclinada (abdômen elevado) → <b style="color:var(--txt)"><i>Anopheles</i></b><br>
+              <b style="color:var(--txt)">2’.</b> Corpo mais paralelo à superfície → <b style="color:var(--txt)">3</b>
+            </div>
+            <div style="color:var(--muted); font-size:12px; line-height:1.45;">
+              <b style="color:var(--txt)">3.</b> Tórax com desenho em “lira” + pernas aneladas → <b style="color:var(--txt)"><i>Aedes aegypti</i></b>
+            </div>
+          </div>
+          <div class="kbdline">
+            Nota: esta chave é “curta” e didática. Para identificação formal, usa-se chave entomológica completa (microscopia/escamas).
+          </div>
+        </div>
+      </section>
+
+      <section class="card" id="ciclo" data-title="Ciclo de vida">
+        <div class="hd">
+          <div>
+            <h3>Ciclo de vida (linha do tempo)</h3>
+            <small>Use como “slider” depois, se quiser. Aqui já está pronto como cards.</small>
+          </div>
+        </div>
+        <div class="bd">
+          <div class="timeline">
+            <div class="step">
+              <div class="num">1</div>
+              <div>
+                <b>Ovo</b>
+                <span>Depositado isoladamente; fixado em paredes de recipientes; resistente à dessecação.</span>
+              </div>
+            </div>
+            <div class="step">
+              <div class="num">2</div>
+              <div>
+                <b>Larva</b>
+                <span>Aquática; alimenta-se de matéria orgânica; passa por quatro estágios (L1–L4).</span>
+              </div>
+            </div>
+            <div class="step">
+              <div class="num">3</div>
+              <div>
+                <b>Pupa</b>
+                <span>Não se alimenta; reorganização interna; respira por trombetas; alta mobilidade na água.</span>
+              </div>
+            </div>
+            <div class="step">
+              <div class="num">4</div>
+              <div>
+                <b>Adulto</b>
+                <span>Emergência a partir da pupa; fêmea precisa de sangue para oviposição; macho usa néctar.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="card" id="galeria" data-title="Galeria">
+        <div class="hd">
+          <div>
+            <h3>Galeria (espaço para suas figuras)</h3>
+            <small>Você cola aqui os links/arquivos das imagens. Sem texto na arte; o texto fica nos hotspots/legendas.</small>
+          </div>
+        </div>
+        <div class="bd" style="display:grid; gap:14px;">
+          <div class="imgslot" data-slot="egg">
+            <div class="row">
+              <b>Figura: Ovo (Aedes aegypti)</b>
+              <span class="kbd">id: imgEgg</span>
+            </div>
+            <div class="hint">Como usar: substitua o <span class="kbd">src</span> da tag <span class="kbd">&lt;img&gt;</span> abaixo pelo caminho da sua figura (ex.: <span class="kbd">assets/ovo.png</span>).</div>
+            <div class="frame">
+              <img id="imgEgg" src="" alt="Figura do ovo de Aedes aegypti (inserir imagem)" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" />
+              <div class="placeholder">Sem imagem ainda. Insira sua figura do <b>ovo</b> editando o <span class="kbd">src</span> do elemento <span class="kbd">imgEgg</span>.</div>
+            </div>
+          </div>
+
+          <div class="imgslot" data-slot="larva">
+            <div class="row">
+              <b>Figura: Larva (vista geral e detalhes)</b>
+              <span class="kbd">id: imgLarva</span>
+            </div>
+            <div class="hint">Sugestão: use uma imagem com “vistas” (geral + detalhes do sifão/escovas bucais).</div>
+            <div class="frame">
+              <img id="imgLarva" src="" alt="Figura da larva de Aedes aegypti (inserir imagem)" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" />
+              <div class="placeholder">Sem imagem ainda. Insira sua figura da <b>larva</b> editando o <span class="kbd">src</span> do elemento <span class="kbd">imgLarva</span>.</div>
+            </div>
+          </div>
+
+          <div class="imgslot" data-slot="pupa">
+            <div class="row">
+              <b>Figura: Pupa (forma de vírgula)</b>
+              <span class="kbd">id: imgPupa</span>
+            </div>
+            <div class="hint">Ideal: vista lateral com trombetas respiratórias e nadadeiras caudais visíveis.</div>
+            <div class="frame">
+              <img id="imgPupa" src="" alt="Figura da pupa de Aedes aegypti (inserir imagem)" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" />
+              <div class="placeholder">Sem imagem ainda. Insira sua figura da <b>pupa</b> editando o <span class="kbd">src</span> do elemento <span class="kbd">imgPupa</span>.</div>
+            </div>
+          </div>
+
+          <div class="imgslot" data-slot="adult">
+            <div class="row">
+              <b>Figura: Adulto (vista geral + partes)</b>
+              <span class="kbd">id: imgAdult</span>
+            </div>
+            <div class="hint">Você pode usar uma figura “mosaico” (adulto + cabeça + perna + asa + abdômen).</div>
+            <div class="frame">
+              <img id="imgAdult" src="" alt="Figura do adulto de Aedes aegypti (inserir imagem)" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" />
+              <div class="placeholder">Sem imagem ainda. Insira sua figura do <b>adulto</b> editando o <span class="kbd">src</span> do elemento <span class="kbd">imgAdult</span>.</div>
+            </div>
+          </div>
+
+          <div class="mini" style="color:var(--muted); font-size:12px; line-height:1.45;">
+            <b style="color:var(--txt)">Como colocar as imagens (rápido):</b><br>
+            1) Crie uma pasta <span class="kbd">assets/</span> ao lado deste arquivo.<br>
+            2) Salve as figuras como <span class="kbd">ovo.png</span>, <span class="kbd">larva.png</span>, <span class="kbd">pupa.png</span>, <span class="kbd">adulto.png</span>.<br>
+            3) No final deste HTML (JS), existe a função <span class="kbd">setImagePaths()</span> — basta preencher os caminhos.
+          </div>
+        </div>
+      </section>
+
+      <section class="card" id="quizzes" data-title="Quizzes">
+        <div class="hd">
+          <div>
+            <h3>Quizzes (aprenda praticando)</h3>
+            <small>3 modos: chave rápida, ciclo de vida e anatomia. Resultados ficam salvos no navegador.</small>
+          </div>
+        </div>
+        <div class="bd">
+          <div class="quiz" id="quizArea">
+
+            <div class="qcard" data-quiz="key">
+              <div class="qtop">
+                <div class="qtitle">
+                  <b>Quiz 1 — Identificação (chave curta)</b>
+                  <small>Reconheça qual gênero/espécie é mais provável.</small>
+                </div>
+                <div class="qmeta">
+                  <span class="kbd" id="keyCount">0/0</span>
+                  <div class="bar" aria-label="progresso"><div id="keyBar"></div></div>
+                </div>
+              </div>
+
+              <div id="keyQ"></div>
+              <div class="opts" id="keyOpts"></div>
+              <div class="feedback" id="keyFb" style="display:none;"></div>
+
+              <div class="row2">
+                <button class="btn primary" id="keyNext">Próxima</button>
+                <button class="btn" id="keyRestart">Reiniciar</button>
+              </div>
+            </div>
+
+            <div class="qcard" data-quiz="life">
+              <div class="qtop">
+                <div class="qtitle">
+                  <b>Quiz 2 — Ciclo de vida</b>
+                  <small>Escolha a ordem correta (metamorfose completa).</small>
+                </div>
+                <div class="qmeta">
+                  <span class="kbd" id="lifeCount">0/0</span>
+                  <div class="bar"><div id="lifeBar"></div></div>
+                </div>
+              </div>
+
+              <div id="lifeQ"></div>
+              <div class="opts" id="lifeOpts"></div>
+              <div class="feedback" id="lifeFb" style="display:none;"></div>
+
+              <div class="row2">
+                <button class="btn primary" id="lifeNext">Próxima</button>
+                <button class="btn" id="lifeRestart">Reiniciar</button>
+              </div>
+            </div>
+
+            <div class="qcard" data-quiz="anat">
+              <div class="qtop">
+                <div class="qtitle">
+                  <b>Quiz 3 — Anatomia do adulto</b>
+                  <small>Função/identificação de partes externas.</small>
+                </div>
+                <div class="qmeta">
+                  <span class="kbd" id="anatCount">0/0</span>
+                  <div class="bar"><div id="anatBar"></div></div>
+                </div>
+              </div>
+
+              <div id="anatQ"></div>
+              <div class="opts" id="anatOpts"></div>
+              <div class="feedback" id="anatFb" style="display:none;"></div>
+
+              <div class="row2">
+                <button class="btn primary" id="anatNext">Próxima</button>
+                <button class="btn" id="anatRestart">Reiniciar</button>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="mini" style="margin-top:14px;">
+            <b style="font-size:13px;">Modo professor (opcional)</b>
+            <div style="color:var(--muted); font-size:12px; line-height:1.45; margin-top:6px;">
+              Você pode editar/expandir o banco de questões no final do arquivo (procure por <span class="kbd">QUESTION_BANK</span>).
+              As alternativas são embaralhadas para evitar padrões fáceis.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="foot">
+        Feito para uso educacional e divulgação científica. Você pode adaptar o texto para sua realidade local e inserir suas imagens.
+      </div>
+    </section>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite">
+    <div class="dot"></div>
+    <div>
+      <b id="toastTitle">Ok</b>
+      <span id="toastMsg">Mensagem</span>
+    </div>
+    <button id="toastClose" aria-label="Fechar">✕</button>
+  </div>
+
+  <script>
+    /***********************
+     * CONFIG: IMAGENS
+     * Preencha os caminhos abaixo para inserir suas figuras.
+     * Ex.: "assets/ovo.png"
+     ***********************/
+    function setImagePaths(){
+      const paths = {
+        egg:   "",  // ex: "assets/ovo.png"
+        larva: "",  // ex: "assets/larva.png"
+        pupa:  "",  // ex: "assets/pupa.png"
+        adult: ""   // ex: "assets/adulto.png"
+      };
+      if (paths.egg)   document.getElementById("imgEgg").src = paths.egg;
+      if (paths.larva) document.getElementById("imgLarva").src = paths.larva;
+      if (paths.pupa)  document.getElementById("imgPupa").src = paths.pupa;
+      if (paths.adult) document.getElementById("imgAdult").src = paths.adult;
+    }
+
+    /***********************
+     * UTIL
+     ***********************/
+    const $ = (sel, root=document) => root.querySelector(sel);
+    const $$ = (sel, root=document) => Array.from(root.querySelectorAll(sel));
+    const clamp = (n,min,max)=>Math.max(min,Math.min(max,n));
+
+    function shuffle(arr){
+      // Fisher-Yates
+      const a = arr.slice();
+      for(let i=a.length-1;i>0;i--){
+        const j = Math.floor(Math.random()*(i+1));
+        [a[i],a[j]] = [a[j],a[i]];
+      }
+      return a;
+    }
+
+    function toast(title, msg){
+      const t = $("#toast");
+      $("#toastTitle").textContent = title;
+      $("#toastMsg").textContent = msg;
+      t.classList.add("show");
+      clearTimeout(window.__toastTimer);
+      window.__toastTimer = setTimeout(()=>t.classList.remove("show"), 2600);
+    }
+    $("#toastClose").addEventListener("click", ()=>$("#toast").classList.remove("show"));
+
+    /***********************
+     * PROGRESSO (localStorage)
+     ***********************/
+    const STORE_KEY = "aedes_platform_v1";
+    const defaultState = {
+      read: { inicio:false, identidade:false, taxonomia:false, filogenia:false, sistematica:false, chave:false, ciclo:false, galeria:false, quizzes:false },
+      quiz: { key:null, life:null, anat:null } // % scores
+    };
+
+    function loadState(){
+      try{
+        const raw = localStorage.getItem(STORE_KEY);
+        if(!raw) return structuredClone(defaultState);
+        const obj = JSON.parse(raw);
+        return {
+          ...structuredClone(defaultState),
+          ...obj,
+          read: { ...structuredClone(defaultState.read), ...(obj.read||{}) },
+          quiz: { ...structuredClone(defaultState.quiz), ...(obj.quiz||{}) }
+        };
+      }catch(e){
+        return structuredClone(defaultState);
+      }
+    }
+    function saveState(){
+      localStorage.setItem(STORE_KEY, JSON.stringify(state));
+      renderKPIs();
+    }
+    let state = loadState();
+
+    function progressPercent(){
+      const vals = Object.values(state.read);
+      const done = vals.filter(Boolean).length;
+      return Math.round((done/vals.length)*100);
+    }
+
+    function quizAverage(){
+      const vals = Object.values(state.quiz).filter(v => typeof v === "number");
+      if(!vals.length) return null;
+      const avg = vals.reduce((a,b)=>a+b,0)/vals.length;
+      return Math.round(avg);
+    }
+
+    function renderKPIs(){
+      $("#kpiProgress").textContent = progressPercent() + "%";
+      const qa = quizAverage();
+      $("#kpiQuiz").textContent = (qa===null ? "—" : qa + "%");
+    }
+
+    /***********************
+     * NAV ACTIVE + MARK READ
+     ***********************/
+    const sections = $$(".content [id]");
+    const navLinks = $$("#nav a");
+
+    function setActiveNav(hash){
+      navLinks.forEach(a => a.classList.toggle("active", a.getAttribute("href") === hash));
+    }
+
+    function currentSectionId(){
+      // detect most visible section among main modules in nav
+      const ids = navLinks.map(a => a.dataset.sec);
+      let best = { id:"inicio", score:-Infinity };
+      ids.forEach(id=>{
+        const el = document.getElementById(id);
+        if(!el) return;
+        const r = el.getBoundingClientRect();
+        const vh = window.innerHeight || document.documentElement.clientHeight;
+        // score based on how close top is to 100px and visible height
+        const visible = Math.max(0, Math.min(r.bottom, vh) - Math.max(r.top, 0));
+        const dist = Math.abs(r.top - 90);
+        const score = visible - dist*0.25;
+        if(score > best.score) best = { id, score };
+      });
+      return best.id;
+    }
+
+    function onScroll(){
+      const id = currentSectionId();
+      setActiveNav("#"+id);
+    }
+    window.addEventListener("scroll", ()=>requestAnimationFrame(onScroll), { passive:true });
+
+    navLinks.forEach(a=>{
+      a.addEventListener("click", (e)=>{
+        // smooth scroll
+        e.preventDefault();
+        const id = a.dataset.sec;
+        const el = document.getElementById(id);
+        if(!el) return;
+        el.scrollIntoView({ behavior:"smooth", block:"start" });
+        history.replaceState(null, "", "#"+id);
+        setActiveNav("#"+id);
+      });
+    });
+
+    $("#btnMarkRead").addEventListener("click", ()=>{
+      const id = currentSectionId();
+      if(state.read[id] === true){
+        toast("Já marcado", "Esta seção já está como lida.");
+        return;
+      }
+      state.read[id] = true;
+      saveState();
+      toast("Marcado como lida", "Seção: " + id);
+    });
+
+    $("#btnReset").addEventListener("click", ()=>{
+      if(!confirm("Resetar progresso e quizzes?")) return;
+      state = structuredClone(defaultState);
+      saveState();
+      toast("Reset feito", "Progresso e quizzes foram limpos.");
+      // restart quizzes too
+      QuizEngine.restartAll();
+    });
+
+    /***********************
+     * QUIZZES
+     ***********************/
+    const QUESTION_BANK = {
+      key: [
+        {
+          q: "Mosquito com corpo marrom e sem padrão branco evidente (em geral):",
+          a: "Culex",
+          why: "Na chave curta, corpo marrom sem contrastes fortes aponta para <i>Culex</i>."
+        },
+        {
+          q: "Mosquito que costuma repousar com o corpo inclinado (abdômen elevado):",
+          a: "Anopheles",
+          why: "<i>Anopheles</i> tem postura típica inclinada quando em repouso."
+        },
+        {
+          q: "Mosquito com pernas aneladas e desenho claro no tórax em forma de “lira”:",
+          a: "Aedes aegypti",
+          why: "O padrão “lira” no tórax e anéis nas pernas são marcadores clássicos de <i>A. aegypti</i>."
+        },
+        {
+          q: "Mosquito com escamas claras contrastantes, corpo mais paralelo ao repousar:",
+          a: "Aedes (gênero)",
+          why: "Padrões brancos + postura mais paralela sugerem <i>Aedes</i> na chave curta."
+        }
+      ],
+      life: [
+        {
+          q: "Qual é a ordem correta do ciclo (metamorfose completa)?",
+          a: "Ovo → Larva → Pupa → Adulto",
+          why: "Holometábolos passam por larva e pupa antes do adulto."
+        },
+        {
+          q: "Qual fase NÃO se alimenta, mas é aquática e muito móvel?",
+          a: "Pupa",
+          why: "A pupa é fase de reorganização interna; respira e se move, mas não se alimenta."
+        },
+        {
+          q: "Qual fase é aquática e passa por quatro estágios (L1–L4)?",
+          a: "Larva",
+          why: "A larva é a fase de crescimento e alimentação na água."
+        },
+        {
+          q: "Qual fase é depositada nas paredes de recipientes e resiste à dessecação?",
+          a: "Ovo",
+          why: "Os ovos podem suportar períodos secos e eclodem quando há água novamente."
+        }
+      ],
+      anat: [
+        {
+          q: "Parte alongada usada para perfurar e sugar (na fêmea):",
+          a: "Probóscide",
+          why: "A probóscide é o aparelho bucal alongado; na fêmea permite hematofagia."
+        },
+        {
+          q: "Estruturas sensoriais na cabeça, úteis na identificação sexual (mais plumosas no macho):",
+          a: "Antenas",
+          why: "Antenas são sensoriais; machos frequentemente têm antenas plumosas."
+        },
+        {
+          q: "Segmentos das pernas que mostram anéis claros em <i>Aedes</i>:",
+          a: "Tarsos",
+          why: "Os anéis brancos aparecem comumente nos tarsos (parte distal das pernas)."
+        },
+        {
+          q: "Região locomotora onde se inserem asas e pernas:",
+          a: "Tórax",
+          why: "O tórax é o centro locomotor dos insetos."
+        }
+      ]
+    };
+
+    // Options pool per quiz (to avoid "resposta longa = certa")
+    const OPTION_POOLS = {
+      key: ["Culex", "Anopheles", "Aedes (gênero)", "Aedes aegypti"],
+      life: [
+        "Ovo → Larva → Pupa → Adulto",
+        "Ovo → Pupa → Larva → Adulto",
+        "Larva → Ovo → Pupa → Adulto",
+        "Pupa → Larva → Ovo → Adulto",
+        "Ovo",
+        "Larva",
+        "Pupa",
+        "Adulto"
+      ],
+      anat: ["Probóscide", "Antenas", "Tarsos", "Tórax", "Asas", "Olhos compostos", "Abdômen", "Palpos maxilares"]
+    };
+
+    const QuizEngine = (function(){
+      function makeQuiz(name, mount){
+        const bank = shuffle(QUESTION_BANK[name]);
+        const total = bank.length;
+
+        let idx = 0;
+        let correct = 0;
+        let locked = false;
+
+        const elQ = $("#"+name+"Q");
+        const elOpts = $("#"+name+"Opts");
+        const elFb = $("#"+name+"Fb");
+        const elCount = $("#"+name+"Count");
+        const elBar = $("#"+name+"Bar");
+
+        function updateMeta(){
+          elCount.textContent = `${clamp(idx+1,1,total)}/${total}`;
+          const pct = total ? Math.round((idx/total)*100) : 0;
+          elBar.style.width = pct + "%";
+        }
+
+        function renderQuestion(){
+          locked = false;
+          elFb.style.display = "none";
+          elFb.classList.remove("good","bad");
+          elFb.innerHTML = "";
+          elOpts.innerHTML = "";
+
+          const item = bank[idx];
+          elQ.innerHTML = `<div style="color: var(--txt); font-weight:800; font-size:13px; line-height:1.35;">${item.q}</div>`;
+
+          const pool = OPTION_POOLS[name] || [];
+          // Build options: correct + 3 distractors (unique)
+          const distractors = shuffle(pool.filter(x => x !== item.a)).slice(0,3);
+          const options = shuffle([item.a, ...distractors]);
+
+          options.forEach(opt=>{
+            const btn = document.createElement("button");
+            btn.className = "opt";
+            btn.type = "button";
+            btn.textContent = opt;
+            btn.addEventListener("click", ()=>choose(opt, btn));
+            elOpts.appendChild(btn);
+          });
+
+          updateMeta();
+        }
+
+        function choose(choice, btn){
+          if(locked) return;
+          locked = true;
+
+          const item = bank[idx];
+          const buttons = $$(".opt", elOpts);
+          buttons.forEach(b=>b.disabled = true);
+
+          const ok = (choice === item.a);
+          if(ok){
+            correct++;
+            btn.classList.add("good");
+            elFb.classList.add("good");
+            elFb.innerHTML = `<b style="color:var(--txt); font-size:12px;">✅ Correto.</b><div style="margin-top:4px;">${item.why}</div>`;
+          }else{
+            btn.classList.add("bad");
+            // mark correct
+            buttons.forEach(b=>{ if(b.textContent===item.a) b.classList.add("good"); });
+            elFb.classList.add("bad");
+            elFb.innerHTML = `<b style="color:var(--txt); font-size:12px;">❌ Não.</b><div style="margin-top:4px;"><b>Resposta:</b> ${item.a}. ${item.why}</div>`;
+          }
+          elFb.style.display = "block";
+        }
+
+        function next(){
+          if(!locked){
+            toast("Responda primeiro", "Escolha uma alternativa antes de avançar.");
+            return;
+          }
+          idx++;
+          if(idx >= total){
+            finish();
+            return;
+          }
+          renderQuestion();
+        }
+
+        function finish(){
+          const score = total ? Math.round((correct/total)*100) : 0;
+          state.quiz[name] = score;
+          saveState();
+
+          elBar.style.width = "100%";
+          elCount.textContent = `${total}/${total}`;
+
+          elQ.innerHTML = `<div style="font-weight:900; font-size:14px;">Resultado: ${score}%</div>
+                           <div style="color: var(--muted); font-size:12px; margin-top:6px; line-height:1.45;">
+                             Você acertou <b style="color: var(--txt)">${correct}</b> de <b style="color: var(--txt)">${total}</b>.
+                           </div>`;
+          elOpts.innerHTML = "";
+          elFb.className = "feedback " + (score>=70 ? "good" : "bad");
+          elFb.style.display = "block";
+          elFb.innerHTML = (score>=70)
+            ? "Boa! Se quiser ficar mais difícil, aumente o banco de questões no código."
+            : "Recomendo revisar a seção correspondente e tentar de novo.";
+
+          toast("Quiz finalizado", `Seu score em ${name}: ${score}%`);
+        }
+
+        function restart(){
+          idx = 0;
+          correct = 0;
+          locked = false;
+          // reshuffle for variety
+          const newBank = shuffle(QUESTION_BANK[name]);
+          bank.length = 0;
+          newBank.forEach(x=>bank.push(x));
+          elBar.style.width = "0%";
+          renderQuestion();
+        }
+
+        return { renderQuestion, next, restart };
+      }
+
+      const instances = {};
+      function init(){
+        instances.key  = makeQuiz("key");
+        instances.life = makeQuiz("life");
+        instances.anat = makeQuiz("anat");
+
+        // wire buttons
+        $("#keyNext").addEventListener("click", ()=>instances.key.next());
+        $("#lifeNext").addEventListener("click", ()=>instances.life.next());
+        $("#anatNext").addEventListener("click", ()=>instances.anat.next());
+
+        $("#keyRestart").addEventListener("click", ()=>instances.key.restart());
+        $("#lifeRestart").addEventListener("click", ()=>instances.life.restart());
+        $("#anatRestart").addEventListener("click", ()=>instances.anat.restart());
+
+        // initial render
+        instances.key.renderQuestion();
+        instances.life.renderQuestion();
+        instances.anat.renderQuestion();
+      }
+
+      function restartAll(){
+        instances.key?.restart();
+        instances.life?.restart();
+        instances.anat?.restart();
+      }
+
+      return { init, restartAll };
+    })();
+
+    /***********************
+     * STARTUP
+     ***********************/
+    function hydrateReadFromHash(){
+      const hash = (location.hash || "#inicio");
+      setActiveNav(hash);
+    }
+
+    function markReadStyling(){
+      // optional: visually mark read sections in nav by dimming dot etc (keep simple)
+      navLinks.forEach(a=>{
+        const id = a.dataset.sec;
+        const done = !!state.read[id];
+        const ico = $(".ico", a);
+        ico.style.opacity = done ? "1" : "0.95";
+        ico.style.borderColor = done ? "rgba(34,197,94,.34)" : "rgba(255,255,255,.14)";
+        ico.style.background = done ? "rgba(34,197,94,.12)" : "rgba(255,255,255,.05)";
+      });
+    }
+
+    function init(){
+      setImagePaths();
+      renderKPIs();
+      hydrateReadFromHash();
+      markReadStyling();
+      QuizEngine.init();
+
+      // Update nav on load & when hash changes
+      window.addEventListener("hashchange", hydrateReadFromHash);
+
+      // Mark read styling updates when state changes
+      const _saveState = saveState;
+      saveState = function(){
+        _saveState();
+        markReadStyling();
+      };
+
+      // First scroll calc
+      onScroll();
+    }
+
+    init();
+  </script>
+</body>
+</html>
