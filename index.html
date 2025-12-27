@@ -1020,12 +1020,19 @@
      * Preencha os caminhos abaixo para inserir suas figuras.
      * Ex.: "assets/ovo.png"
      ***********************/
-    <script>
   function setImagePaths(){
-    document.getElementById("imgEgg").src   = "./assets/ovo.png";
-    document.getElementById("imgLarva").src = "./assets/larva.png";
-    document.getElementById("imgPupa").src  = "./assets/pupa.png";
-    document.getElementById("imgAdult").src = "./assets/adulto.png";
+    // Caminhos relativos (funcionam no PC e no GitHub Pages)
+    const paths = {
+      egg:   "./assets/ovo.png",
+      larva: "./assets/larva.png",
+      pupa:  "./assets/pupa.png",
+      adult: "./assets/adulto.png"
+    };
+
+    document.getElementById("imgEgg").src = paths.egg;
+    document.getElementById("imgLarva").src = paths.larva;
+    document.getElementById("imgPupa").src = paths.pupa;
+    document.getElementById("imgAdult").src = paths.adult;
   }
 </script>
     /***********************
