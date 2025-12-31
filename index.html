@@ -559,10 +559,7 @@
         <div class="kpi" title="Seu progresso é salvo no navegador (localStorage)">
           <span>Progresso:</span> <b id="kpiProgress">0%</b>
         </div>
-        <div class="kpi" title="Desempenho nos quizzes (média)">
-          <span>Quiz:</span> <b id="kpiQuiz">—</b>
-        </div>
-        <button class="pill" id="btnMarkRead" title="Marca a seção atual como lida">
+          <button class="pill" id="btnMarkRead" title="Marca a seção atual como lida">
           <span class="dot"></span><span>Marcar como lida</span>
         </button>
         <button class="pill" id="btnReset" title="Limpa progresso e resultados do quiz">
@@ -611,11 +608,7 @@
           <span class="ico">🖼️</span>
           <span class="lbl"><b>Galeria</b><small>Espaços para suas figuras</small></span>
         </a>
-        <a href="#quizzes" data-sec="quizzes">
-          <span class="ico">🎯</span>
-          <span class="lbl"><b>Quizzes</b><small>Aprender praticando</small></span>
-        </a>
-      </nav>
+       </nav>
     </aside>
 
     <section class="content">
@@ -624,7 +617,7 @@
         <h1>Plataforma interativa do <i>Aedes aegypti</i></h1>
         <p>
           Um “painel taxonômico” pronto para PC e celular: classificação, posição evolutiva,
-          caracteres diagnósticos, chave curta de identificação, ciclo de vida e quizzes.
+          caracteres diagnósticos, chave curta de identificação e ciclo de vida.
           <br><br>
           <span class="kbd">Dica</span> Você pode inserir suas figuras nos espaços da galeria (sem texto dentro do desenho),
           e usar o app em aula, oficina, ou divulgação científica.
@@ -911,16 +904,7 @@
         </div>
       </section>
 
-      <section id="quiz">
-  <h2>Quiz – Identificação do Aedes</h2>
-  <p id="qText"></p>
-  <div id="qOpts"></div>
-  <p id="qFeedback"></p>
-</section>
-
-<script src="assets/quiz.js"></script>
-
-      <div class="foot">
+            <div class="foot">
         Feito para uso educacional e divulgação científica. Você pode adaptar o texto para sua realidade local e inserir suas imagens.
       </div>
     </section>
@@ -988,7 +972,7 @@
      ***********************/
     const STORE_KEY = "aedes_platform_v1";
     const defaultState = {
-      read: { inicio:false, identidade:false, taxonomia:false, filogenia:false, sistematica:false, chave:false, ciclo:false, galeria:false, quizzes:false },
+      read: { inicio:false, identidade:false, taxonomia:false, filogenia:false, sistematica:false, chave:false, ciclo:false, galeria:false },
       quiz: { key:null, life:null, anat:null } // % scores
     };
 
@@ -1098,246 +1082,6 @@
       // restart quizzes too
       QuizEngine.restartAll();
     });
-
-    /***********************
-     * QUIZZES
-     ***********************/
-    const QUESTION_BANK = {
-      key: [
-        {
-          q: "Mosquito com corpo marrom e sem padrão branco evidente (em geral):",
-          a: "Culex",
-          why: "Na chave curta, corpo marrom sem contrastes fortes aponta para <i>Culex</i>."
-        },
-        {
-          q: "Mosquito que costuma repousar com o corpo inclinado (abdômen elevado):",
-          a: "Anopheles",
-          why: "<i>Anopheles</i> tem postura típica inclinada quando em repouso."
-        },
-        {
-          q: "Mosquito com pernas aneladas e desenho claro no tórax em forma de “lira”:",
-          a: "Aedes aegypti",
-          why: "O padrão “lira” no tórax e anéis nas pernas são marcadores clássicos de <i>A. aegypti</i>."
-        },
-        {
-          q: "Mosquito com escamas claras contrastantes, corpo mais paralelo ao repousar:",
-          a: "Aedes (gênero)",
-          why: "Padrões brancos + postura mais paralela sugerem <i>Aedes</i> na chave curta."
-        }
-      ],
-      life: [
-        {
-          q: "Qual é a ordem correta do ciclo (metamorfose completa)?",
-          a: "Ovo → Larva → Pupa → Adulto",
-          why: "Holometábolos passam por larva e pupa antes do adulto."
-        },
-        {
-          q: "Qual fase NÃO se alimenta, mas é aquática e muito móvel?",
-          a: "Pupa",
-          why: "A pupa é fase de reorganização interna; respira e se move, mas não se alimenta."
-        },
-        {
-          q: "Qual fase é aquática e passa por quatro estágios (L1–L4)?",
-          a: "Larva",
-          why: "A larva é a fase de crescimento e alimentação na água."
-        },
-        {
-          q: "Qual fase é depositada nas paredes de recipientes e resiste à dessecação?",
-          a: "Ovo",
-          why: "Os ovos podem suportar períodos secos e eclodem quando há água novamente."
-        }
-      ],
-      anat: [
-        {
-          q: "Parte alongada usada para perfurar e sugar (na fêmea):",
-          a: "Probóscide",
-          why: "A probóscide é o aparelho bucal alongado; na fêmea permite hematofagia."
-        },
-        {
-          q: "Estruturas sensoriais na cabeça, úteis na identificação sexual (mais plumosas no macho):",
-          a: "Antenas",
-          why: "Antenas são sensoriais; machos frequentemente têm antenas plumosas."
-        },
-        {
-          q: "Segmentos das pernas que mostram anéis claros em <i>Aedes</i>:",
-          a: "Tarsos",
-          why: "Os anéis brancos aparecem comumente nos tarsos (parte distal das pernas)."
-        },
-        {
-          q: "Região locomotora onde se inserem asas e pernas:",
-          a: "Tórax",
-          why: "O tórax é o centro locomotor dos insetos."
-        }
-      ]
-    };
-
-    // Options pool per quiz (to avoid "resposta longa = certa")
-    const OPTION_POOLS = {
-      key: ["Culex", "Anopheles", "Aedes (gênero)", "Aedes aegypti"],
-      life: [
-        "Ovo → Larva → Pupa → Adulto",
-        "Ovo → Pupa → Larva → Adulto",
-        "Larva → Ovo → Pupa → Adulto",
-        "Pupa → Larva → Ovo → Adulto",
-        "Ovo",
-        "Larva",
-        "Pupa",
-        "Adulto"
-      ],
-      anat: ["Probóscide", "Antenas", "Tarsos", "Tórax", "Asas", "Olhos compostos", "Abdômen", "Palpos maxilares"]
-    };
-
-    const QuizEngine = (function(){
-      function makeQuiz(name, mount){
-        const bank = shuffle(QUESTION_BANK[name]);
-        const total = bank.length;
-
-        let idx = 0;
-        let correct = 0;
-        let locked = false;
-
-        const elQ = $("#"+name+"Q");
-        const elOpts = $("#"+name+"Opts");
-        const elFb = $("#"+name+"Fb");
-        const elCount = $("#"+name+"Count");
-        const elBar = $("#"+name+"Bar");
-
-        function updateMeta(){
-          elCount.textContent = `${clamp(idx+1,1,total)}/${total}`;
-          const pct = total ? Math.round((idx/total)*100) : 0;
-          elBar.style.width = pct + "%";
-        }
-
-        function renderQuestion(){
-          locked = false;
-          elFb.style.display = "none";
-          elFb.classList.remove("good","bad");
-          elFb.innerHTML = "";
-          elOpts.innerHTML = "";
-
-          const item = bank[idx];
-          elQ.innerHTML = `<div style="color: var(--txt); font-weight:800; font-size:13px; line-height:1.35;">${item.q}</div>`;
-
-          const pool = OPTION_POOLS[name] || [];
-          // Build options: correct + 3 distractors (unique)
-          const distractors = shuffle(pool.filter(x => x !== item.a)).slice(0,3);
-          const options = shuffle([item.a, ...distractors]);
-
-          options.forEach(opt=>{
-            const btn = document.createElement("button");
-            btn.className = "opt";
-            btn.type = "button";
-            btn.textContent = opt;
-            btn.addEventListener("click", ()=>choose(opt, btn));
-            elOpts.appendChild(btn);
-          });
-
-          updateMeta();
-        }
-
-        function choose(choice, btn){
-          if(locked) return;
-          locked = true;
-
-          const item = bank[idx];
-          const buttons = $$(".opt", elOpts);
-          buttons.forEach(b=>b.disabled = true);
-
-          const ok = (choice === item.a);
-          if(ok){
-            correct++;
-            btn.classList.add("good");
-            elFb.classList.add("good");
-            elFb.innerHTML = `<b style="color:var(--txt); font-size:12px;">✅ Correto.</b><div style="margin-top:4px;">${item.why}</div>`;
-          }else{
-            btn.classList.add("bad");
-            // mark correct
-            buttons.forEach(b=>{ if(b.textContent===item.a) b.classList.add("good"); });
-            elFb.classList.add("bad");
-            elFb.innerHTML = `<b style="color:var(--txt); font-size:12px;">❌ Não.</b><div style="margin-top:4px;"><b>Resposta:</b> ${item.a}. ${item.why}</div>`;
-          }
-          elFb.style.display = "block";
-        }
-
-        function next(){
-          if(!locked){
-            toast("Responda primeiro", "Escolha uma alternativa antes de avançar.");
-            return;
-          }
-          idx++;
-          if(idx >= total){
-            finish();
-            return;
-          }
-          renderQuestion();
-        }
-
-        function finish(){
-          const score = total ? Math.round((correct/total)*100) : 0;
-          state.quiz[name] = score;
-          saveState();
-
-          elBar.style.width = "100%";
-          elCount.textContent = `${total}/${total}`;
-
-          elQ.innerHTML = `<div style="font-weight:900; font-size:14px;">Resultado: ${score}%</div>
-                           <div style="color: var(--muted); font-size:12px; margin-top:6px; line-height:1.45;">
-                             Você acertou <b style="color: var(--txt)">${correct}</b> de <b style="color: var(--txt)">${total}</b>.
-                           </div>`;
-          elOpts.innerHTML = "";
-          elFb.className = "feedback " + (score>=70 ? "good" : "bad");
-          elFb.style.display = "block";
-          elFb.innerHTML = (score>=70)
-            ? "Boa! Se quiser ficar mais difícil, aumente o banco de questões no código."
-            : "Recomendo revisar a seção correspondente e tentar de novo.";
-
-          toast("Quiz finalizado", `Seu score em ${name}: ${score}%`);
-        }
-
-        function restart(){
-          idx = 0;
-          correct = 0;
-          locked = false;
-          // reshuffle for variety
-          const newBank = shuffle(QUESTION_BANK[name]);
-          bank.length = 0;
-          newBank.forEach(x=>bank.push(x));
-          elBar.style.width = "0%";
-          renderQuestion();
-        }
-
-        return { renderQuestion, next, restart };
-      }
-
-      const instances = {};
-      function init(){
-        instances.key  = makeQuiz("key");
-        instances.life = makeQuiz("life");
-        instances.anat = makeQuiz("anat");
-
-        // wire buttons
-        $("#keyNext").addEventListener("click", ()=>instances.key.next());
-        $("#lifeNext").addEventListener("click", ()=>instances.life.next());
-        $("#anatNext").addEventListener("click", ()=>instances.anat.next());
-
-        $("#keyRestart").addEventListener("click", ()=>instances.key.restart());
-        $("#lifeRestart").addEventListener("click", ()=>instances.life.restart());
-        $("#anatRestart").addEventListener("click", ()=>instances.anat.restart());
-
-        // initial render
-        instances.key.renderQuestion();
-        instances.life.renderQuestion();
-        instances.anat.renderQuestion();
-      }
-
-      function restartAll(){
-        instances.key?.restart();
-        instances.life?.restart();
-        instances.anat?.restart();
-      }
-
-      return { init, restartAll };
-    })();
 
     /***********************
      * STARTUP
