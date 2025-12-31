@@ -559,14 +559,7 @@
         <div class="kpi" title="Seu progresso é salvo no navegador (localStorage)">
           <span>Progresso:</span> <b id="kpiProgress">0%</b>
         </div>
-          <button class="pill" id="btnMarkRead" title="Marca a seção atual como lida">
-          <span class="dot"></span><span>Marcar como lida</span>
-        </button>
-        <button class="pill" id="btnReset" title="Limpa progresso e resultados do quiz">
-          <span class="dot" style="background: var(--bad); box-shadow: 0 0 0 4px rgba(239,68,68,.16);"></span><span>Reset</span>
-        </button>
-      </div>
-    </div>
+             </div>
   </header>
 
   <main class="layout">
@@ -1067,15 +1060,7 @@
       toast("Marcado como lida", "Seção: " + id);
     });
 
-    $("#btnReset").addEventListener("click", ()=>{
-      if(!confirm("Resetar progresso e quizzes?")) return;
-      state = structuredClone(defaultState);
-      saveState();
-      toast("Reset feito", "Progresso e quizzes foram limpos.");
-      // restart quizzes too
-      QuizEngine.restartAll();
-    });
-
+  
     /***********************
      * STARTUP
      ***********************/
