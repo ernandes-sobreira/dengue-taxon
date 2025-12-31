@@ -911,93 +911,14 @@
         </div>
       </section>
 
-      <section class="card" id="quizzes" data-title="Quizzes">
-        <div class="hd">
-          <div>
-            <h3>Quizzes (aprenda praticando)</h3>
-            <small>3 modos: chave rápida, ciclo de vida e anatomia. Resultados ficam salvos no navegador.</small>
-          </div>
-        </div>
-        <div class="bd">
-          <div class="quiz" id="quizArea">
+      <section id="quiz">
+  <h2>Quiz – Identificação do Aedes</h2>
+  <p id="qText"></p>
+  <div id="qOpts"></div>
+  <p id="qFeedback"></p>
+</section>
 
-            <div class="qcard" data-quiz="key">
-              <div class="qtop">
-                <div class="qtitle">
-                  <b>Quiz 1 — Identificação (chave curta)</b>
-                  <small>Reconheça qual gênero/espécie é mais provável.</small>
-                </div>
-                <div class="qmeta">
-                  <span class="kbd" id="keyCount">0/0</span>
-                  <div class="bar" aria-label="progresso"><div id="keyBar"></div></div>
-                </div>
-              </div>
-
-              <div id="keyQ"></div>
-              <div class="opts" id="keyOpts"></div>
-              <div class="feedback" id="keyFb" style="display:none;"></div>
-
-              <div class="row2">
-                <button class="btn primary" id="keyNext">Próxima</button>
-                <button class="btn" id="keyRestart">Reiniciar</button>
-              </div>
-            </div>
-
-            <div class="qcard" data-quiz="life">
-              <div class="qtop">
-                <div class="qtitle">
-                  <b>Quiz 2 — Ciclo de vida</b>
-                  <small>Escolha a ordem correta (metamorfose completa).</small>
-                </div>
-                <div class="qmeta">
-                  <span class="kbd" id="lifeCount">0/0</span>
-                  <div class="bar"><div id="lifeBar"></div></div>
-                </div>
-              </div>
-
-              <div id="lifeQ"></div>
-              <div class="opts" id="lifeOpts"></div>
-              <div class="feedback" id="lifeFb" style="display:none;"></div>
-
-              <div class="row2">
-                <button class="btn primary" id="lifeNext">Próxima</button>
-                <button class="btn" id="lifeRestart">Reiniciar</button>
-              </div>
-            </div>
-
-            <div class="qcard" data-quiz="anat">
-              <div class="qtop">
-                <div class="qtitle">
-                  <b>Quiz 3 — Anatomia do adulto</b>
-                  <small>Função/identificação de partes externas.</small>
-                </div>
-                <div class="qmeta">
-                  <span class="kbd" id="anatCount">0/0</span>
-                  <div class="bar"><div id="anatBar"></div></div>
-                </div>
-              </div>
-
-              <div id="anatQ"></div>
-              <div class="opts" id="anatOpts"></div>
-              <div class="feedback" id="anatFb" style="display:none;"></div>
-
-              <div class="row2">
-                <button class="btn primary" id="anatNext">Próxima</button>
-                <button class="btn" id="anatRestart">Reiniciar</button>
-              </div>
-            </div>
-
-          </div>
-
-          <div class="mini" style="margin-top:14px;">
-            <b style="font-size:13px;">Modo professor (opcional)</b>
-            <div style="color:var(--muted); font-size:12px; line-height:1.45; margin-top:6px;">
-              Você pode editar/expandir o banco de questões no final do arquivo (procure por <span class="kbd">QUESTION_BANK</span>).
-              As alternativas são embaralhadas para evitar padrões fáceis.
-            </div>
-          </div>
-        </div>
-      </section>
+<script src="assets/quiz.js"></script>
 
       <div class="foot">
         Feito para uso educacional e divulgação científica. Você pode adaptar o texto para sua realidade local e inserir suas imagens.
