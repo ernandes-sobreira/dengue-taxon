@@ -78,39 +78,6 @@
     .brand .t b{ font-weight:800; letter-spacing:.2px; }
     .brand .t small{ color:var(--muted); font-size:12px; }
 
-    .actions{
-      display:flex; gap:8px; align-items:center; flex-wrap:wrap;
-      justify-content:flex-end;
-    }
-    .pill{
-      display:inline-flex; gap:8px; align-items:center;
-      padding:9px 10px;
-      border-radius: 999px;
-      border:1px solid var(--stroke);
-      background: rgba(255,255,255,.05);
-      color: var(--txt);
-      cursor:pointer;
-      transition: transform .12s ease, background .12s ease, border-color .12s ease;
-      user-select:none;
-    }
-    .pill:hover{ transform: translateY(-1px); background: rgba(255,255,255,.07); border-color: rgba(255,255,255,.18); }
-    .pill:active{ transform: translateY(0); }
-    .pill .dot{
-      width:8px; height:8px; border-radius:50%;
-      background: var(--accent);
-      box-shadow: 0 0 0 4px rgba(96,165,250,.16);
-    }
-    .kpi{
-      font-size:12px;
-      color: var(--muted);
-      padding:9px 12px;
-      border-radius:999px;
-      border:1px solid var(--stroke);
-      background: rgba(255,255,255,.04);
-      display:inline-flex; gap:8px; align-items:center;
-    }
-    .kpi b{ color:var(--txt); font-size:12px; }
-
     .layout{
       max-width:var(--max);
       margin:0 auto;
@@ -296,60 +263,6 @@
     .list b{ display:block; font-size:13px; }
     .list span{ color: var(--muted); font-size:12px; line-height:1.35; display:block; margin-top:3px; }
 
-    .imgslot{
-      border-radius: var(--radius2);
-      border:1px dashed rgba(255,255,255,.22);
-      background: rgba(255,255,255,.03);
-      padding:12px;
-      display:grid;
-      gap:10px;
-    }
-    .imgslot .row{
-      display:flex; gap:10px; align-items:center; justify-content:space-between;
-      flex-wrap:wrap;
-    }
-    .imgslot .hint{
-      color: var(--muted);
-      font-size:12px;
-      line-height:1.35;
-    }
-    .imgslot .frame{
-      border-radius: 14px;
-      border:1px solid var(--stroke);
-      background: rgba(0,0,0,.22);
-      overflow:hidden;
-      min-height: 180px;
-      display:grid;
-      place-items:center;
-      position:relative;
-    }
-    .imgslot img{
-      width:100%;
-      height:auto;
-      display:block;
-      max-height: 520px;
-      object-fit:contain;
-      background: rgba(0,0,0,.12);
-    }
-    .imgslot .placeholder{
-      color: rgba(234,242,255,.65);
-      font-size:12px;
-      padding: 10px 12px;
-      text-align:center;
-      max-width: 56ch;
-    }
-
-    .kbd{
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-      font-size: 11px;
-      padding:2px 6px;
-      border-radius: 8px;
-      border:1px solid var(--stroke);
-      background: rgba(255,255,255,.04);
-      color: rgba(234,242,255,.85);
-      display:inline-block;
-    }
-
     .timeline{
       display:grid;
       grid-template-columns: 1fr;
@@ -377,84 +290,17 @@
     .step b{ display:block; font-size:13px; }
     .step span{ display:block; margin-top:4px; color: var(--muted); font-size:12px; line-height:1.35; }
 
-    .quiz{
-      display:grid;
-      gap:12px;
-    }
-    .qcard{
-      border-radius: var(--radius2);
+    .kbd{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 11px;
+      padding:2px 6px;
+      border-radius: 8px;
       border:1px solid var(--stroke);
-      background: rgba(255,255,255,.03);
-      padding:12px;
+      background: rgba(255,255,255,.04);
+      color: rgba(234,242,255,.85);
+      display:inline-block;
     }
-    .qtop{
-      display:flex; gap:10px; align-items:flex-start; justify-content:space-between;
-      margin-bottom:8px;
-      flex-wrap:wrap;
-    }
-    .qtitle{
-      display:flex; flex-direction:column; gap:4px;
-      min-width: 240px;
-    }
-    .qtitle b{ font-size:13px; }
-    .qtitle small{ color: var(--muted); font-size:12px; }
-    .qmeta{
-      display:flex; gap:8px; align-items:center; flex-wrap:wrap;
-      color: var(--muted);
-      font-size:12px;
-    }
-    .bar{
-      height:10px;
-      border-radius:999px;
-      border:1px solid var(--stroke);
-      background: rgba(255,255,255,.03);
-      overflow:hidden;
-      min-width: 180px;
-    }
-    .bar > div{
-      height:100%;
-      width:0%;
-      background: linear-gradient(90deg, rgba(96,165,250,.85), rgba(167,139,250,.75));
-    }
-    .opts{
-      display:grid;
-      grid-template-columns: 1fr;
-      gap:8px;
-      margin-top:10px;
-    }
-    .opt{
-      text-align:left;
-      border-radius: 14px;
-      border:1px solid var(--stroke);
-      background: rgba(255,255,255,.03);
-      padding:10px 10px;
-      color: var(--txt);
-      cursor:pointer;
-      transition: transform .12s ease, background .12s ease, border-color .12s ease;
-    }
-    .opt:hover{ transform: translateY(-1px); background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.18); }
-    .opt[disabled]{ cursor:not-allowed; opacity:.75; transform:none; }
-    .opt.good{ border-color: rgba(34,197,94,.55); background: rgba(34,197,94,.14); }
-    .opt.bad{ border-color: rgba(239,68,68,.55); background: rgba(239,68,68,.12); }
 
-    .feedback{
-      margin-top:10px;
-      padding:10px;
-      border-radius:14px;
-      border:1px solid var(--stroke);
-      background: rgba(255,255,255,.03);
-      color: var(--muted);
-      font-size:12px;
-      line-height:1.4;
-    }
-    .feedback.good{ border-color: rgba(34,197,94,.40); background: rgba(34,197,94,.10); }
-    .feedback.bad{ border-color: rgba(239,68,68,.40); background: rgba(239,68,68,.09); }
-
-    .row2{
-      display:flex; gap:10px; align-items:center; justify-content:space-between;
-      flex-wrap:wrap;
-      margin-top:10px;
-    }
     .btn{
       border-radius: 14px;
       border:1px solid var(--stroke);
@@ -470,10 +316,6 @@
       border-color: rgba(96,165,250,.38);
       background: rgba(96,165,250,.16);
     }
-    .btn.danger{
-      border-color: rgba(239,68,68,.35);
-      background: rgba(239,68,68,.10);
-    }
 
     .kbdline{
       margin-top:10px;
@@ -481,43 +323,6 @@
       font-size:11px;
       line-height:1.4;
     }
-
-    .toast{
-      position:fixed;
-      right:14px;
-      bottom:14px;
-      z-index:100;
-      max-width:min(460px, calc(100vw - 28px));
-      border-radius: 16px;
-      border:1px solid var(--stroke);
-      background: rgba(6,10,18,.85);
-      box-shadow: var(--shadow);
-      padding:10px 12px;
-      display:none;
-      gap:10px;
-      align-items:flex-start;
-    }
-    .toast.show{ display:flex; animation: pop .18s ease; }
-    @keyframes pop{ from{ transform: translateY(8px); opacity:0; } to{ transform: translateY(0); opacity:1; } }
-    .toast .dot{
-      width:10px;height:10px;border-radius:50%;
-      background: var(--accent);
-      box-shadow: 0 0 0 4px rgba(96,165,250,.16);
-      margin-top:3px;
-      flex:0 0 auto;
-    }
-    .toast b{ display:block; font-size:12px; }
-    .toast span{ display:block; font-size:12px; color: var(--muted); margin-top:2px; line-height:1.35; }
-    .toast button{
-      margin-left:auto;
-      border:none;
-      background: transparent;
-      color: rgba(234,242,255,.75);
-      cursor:pointer;
-      padding:6px 8px;
-      border-radius:10px;
-    }
-    .toast button:hover{ background: rgba(255,255,255,.06); }
 
     .foot{
       color: var(--muted2);
@@ -535,12 +340,6 @@
       .brand{ min-width:auto; }
       .grid{ grid-template-columns: 1fr; }
     }
-    @media (max-width: 520px){
-      .badge{ width:34px; height:34px; border-radius: 12px; }
-      .hero{ padding:14px; }
-      .card .hd, .card .bd{ padding:12px; }
-      .bar{ min-width: 140px; }
-    }
   </style>
 </head>
 
@@ -551,17 +350,17 @@
         <div class="badge" aria-hidden="true"><span>🦟</span></div>
         <div class="t">
           <b>Aedes aegypti — Plataforma</b>
-          <small>Taxonomia • Filogenia • Chave • Ciclo • Quiz</small>
+          <small>Taxonomia • Filogenia • Chave • Ciclo</small>
         </div>
       </div>
-
-       </header>
+    </div>
+  </header>
 
   <main class="layout">
     <aside class="sidebar" id="sidebar">
       <div class="sidehead">
         <h2>Navegação</h2>
-        <p>Clique nos módulos. No mobile, role normalmente — o menu continua aqui em cima.</p>
+        <p>Clique nos módulos. No mobile, role normalmente.</p>
       </div>
       <nav class="nav" id="nav">
         <a href="#inicio" data-sec="inicio" class="active">
@@ -594,9 +393,9 @@
         </a>
         <a href="#galeria" data-sec="galeria">
           <span class="ico">🖼️</span>
-          <span class="lbl"><b>Galeria</b><small>Espaços para suas figuras</small></span>
+          <span class="lbl"><b>Imagens</b><small>Link externo</small></span>
         </a>
-       </nav>
+      </nav>
     </aside>
 
     <section class="content">
@@ -607,8 +406,7 @@
           Um “painel taxonômico” pronto para PC e celular: classificação, posição evolutiva,
           caracteres diagnósticos, chave curta de identificação e ciclo de vida.
           <br><br>
-          <span class="kbd">Dica</span> Você pode inserir suas figuras nos espaços da galeria (sem texto dentro do desenho),
-          e usar o app em aula, oficina, ou divulgação científica.
+          <span class="kbd">Dica</span> Para imagens confiáveis e bem detalhadas, usamos um link externo.
         </p>
         <div class="chips" aria-label="tags">
           <span class="chip">Metamorfose completa (holometábolo)</span>
@@ -623,7 +421,7 @@
           <div class="hd">
             <div>
               <h3>Identidade da espécie</h3>
-              <small>O básico científico, curto e pronto para hotspots do seu app.</small>
+              <small>O básico científico, curto e pronto para aula e divulgação.</small>
             </div>
           </div>
           <div class="bd">
@@ -694,7 +492,7 @@
           <div class="hd">
             <div>
               <h3>Filogenia (posição evolutiva)</h3>
-              <small>Textos curtos, sem exagero, para guiar o usuário.</small>
+              <small>Textos curtos para guiar o usuário.</small>
             </div>
           </div>
           <div class="bd">
@@ -781,7 +579,7 @@
             </div>
           </div>
           <div class="kbdline">
-            Nota: esta chave é “curta” e didática. Para identificação formal, usa-se chave entomológica completa (microscopia/escamas).
+            Nota: esta chave é didática. Para identificação formal, usa-se chave entomológica completa (microscopia/escamas).
           </div>
         </div>
       </section>
@@ -790,7 +588,7 @@
         <div class="hd">
           <div>
             <h3>Ciclo de vida (linha do tempo)</h3>
-            <small>Use como “slider” depois, se quiser. Aqui já está pronto como cards.</small>
+            <small>Cards prontos para aula.</small>
           </div>
         </div>
         <div class="bd">
@@ -827,180 +625,43 @@
         </div>
       </section>
 
-      <section class="card" id="galeria" data-title="Galeria">
+      <section class="card" id="galeria" data-title="Imagens">
         <div class="hd">
           <div>
-            <h3>Galeria (espaço para suas figuras)</h3>
-            <small>Você cola aqui os links/arquivos das imagens. Sem texto na arte; o texto fica nos hotspots/legendas.</small>
+            <h3>Imagens (referência externa)</h3>
+            <small>Para evitar imagens erradas/sem permissão, a plataforma aponta para uma fonte externa confiável.</small>
           </div>
         </div>
-        <div class="bd" style="display:grid; gap:14px;">
-          <div class="imgslot" data-slot="egg">
-            <div class="row">
-              <b>Figura: Ovo (Aedes aegypti)</b>
-              <span class="kbd">id: imgEgg</span>
+        <div class="bd" style="display:grid; gap:12px;">
+          <div class="mini" style="display:grid; gap:10px;">
+            <div style="color:var(--muted); font-size:12px; line-height:1.45;">
+              Para ver mais imagens do <i>Aedes aegypti</i> (ovo, larva, pupa e adulto), clique no botão abaixo:
             </div>
-            <div class="hint">Como usar: substitua o <span class="kbd">src</span> da tag <span class="kbd">&lt;img&gt;</span> abaixo pelo caminho da sua figura (ex.: <span class="kbd">assets/ovo.png</span>).</div>
-            <div class="frame">
-              <img id="imgEgg"   src="assets/ovo.png"   alt="Ovo de Aedes aegypti" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" />
-              <div class="placeholder">Sem imagem ainda. Insira sua figura do <b>ovo</b> editando o <span class="kbd">src</span> do elemento <span class="kbd">imgEgg</span>.</div>
-            </div>
-          </div>
-
-          <div class="imgslot" data-slot="larva">
-            <div class="row">
-              <b>Figura: Larva (vista geral e detalhes)</b>
-              <span class="kbd">id: imgLarva</span>
-            </div>
-            <div class="hint">Sugestão: use uma imagem com “vistas” (geral + detalhes do sifão/escovas bucais).</div>
-            <div class="frame">
-              <img id="imgLarva" src="assets/larva.png" alt="Larva de Aedes aegypti" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" />
-              <div class="placeholder">Sem imagem ainda. Insira sua figura da <b>larva</b> editando o <span class="kbd">src</span> do elemento <span class="kbd">imgLarva</span>.</div>
+            <a class="btn primary"
+               href="https://www.planetainvertebrados.com.br/index.asp?pagina=artigos_ver&com=1&id=119&local=2"
+               target="_blank" rel="noopener noreferrer">
+              🔗 Ver imagens no Planeta Invertebrados
+            </a>
+            <div class="kbdline">
+              Dica: se quiser, depois eu também coloco aqui uma seção “Créditos/Fontes” com 2–3 links confiáveis (sem baixar imagem nenhuma).
             </div>
           </div>
+        </div>
+      </section>
 
-          <div class="imgslot" data-slot="pupa">
-            <div class="row">
-              <b>Figura: Pupa (forma de vírgula)</b>
-              <span class="kbd">id: imgPupa</span>
-            </div>
-            <div class="hint">Ideal: vista lateral com trombetas respiratórias e nadadeiras caudais visíveis.</div>
-            <div class="frame">
-              <img id="imgPupa"  src="assets/pupa.png"  alt="Pupa de Aedes aegypti" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" />
-              <div class="placeholder">Sem imagem ainda. Insira sua figura da <b>pupa</b> editando o <span class="kbd">src</span> do elemento <span class="kbd">imgPupa</span>.</div>
-            </div>
-          </div>
-
-          <div class="imgslot" data-slot="adult">
-            <div class="row">
-              <b>Figura: Adulto (vista geral + partes)</b>
-              <span class="kbd">id: imgAdult</span>
-            </div>
-            <div class="hint">Você pode usar uma figura “mosaico” (adulto + cabeça + perna + asa + abdômen).</div>
-            <div class="frame">
-              <img id="imgAdult" src="assets/adulto.png" alt="Adulto de Aedes aegypti" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" />
-              <div class="placeholder">Sem imagem ainda. Insira sua figura do <b>adulto</b> editando o <span class="kbd">src</span> do elemento <span class="kbd">imgAdult</span>.</div>
-            </div>
-          </div>
-
-               </section>
-
-            <div class="foot">
-        Feito para uso educacional e divulgação científica. Você pode adaptar o texto para sua realidade local e inserir suas imagens.
+      <div class="foot">
+        Feito para uso educacional e divulgação científica.
       </div>
     </section>
   </main>
 
-  <div class="toast" id="toast" role="status" aria-live="polite">
-    <div class="dot"></div>
-    <div>
-      <b id="toastTitle">Ok</b>
-      <span id="toastMsg">Mensagem</span>
-    </div>
-    <button id="toastClose" aria-label="Fechar">✕</button>
-  </div>
-
   <script>
     /***********************
-     * CONFIG: IMAGENS
-     * Preencha os caminhos abaixo para inserir suas figuras.
-     * Ex.: "assets/ovo.png"
+     * NAV ACTIVE
      ***********************/
-  function setImagePaths(){
-    // Caminhos relativos (funcionam no PC e no GitHub Pages)
-    const paths = {
-      egg:   "./assets/ovo.png",
-      larva: "./assets/larva.png",
-      pupa:  "./assets/pupa.png",
-      adult: "./assets/adulto.png"
-    };
-
-    document.getElementById("imgEgg").src = paths.egg;
-    document.getElementById("imgLarva").src = paths.larva;
-    document.getElementById("imgPupa").src = paths.pupa;
-    document.getElementById("imgAdult").src = paths.adult;
-  }
-<script>
-    /***********************
-     * UTIL
-     ***********************/
-    const $ = (sel, root=document) => root.querySelector(sel);
+    const $  = (sel, root=document) => root.querySelector(sel);
     const $$ = (sel, root=document) => Array.from(root.querySelectorAll(sel));
-    const clamp = (n,min,max)=>Math.max(min,Math.min(max,n));
 
-    function shuffle(arr){
-      // Fisher-Yates
-      const a = arr.slice();
-      for(let i=a.length-1;i>0;i--){
-        const j = Math.floor(Math.random()*(i+1));
-        [a[i],a[j]] = [a[j],a[i]];
-      }
-      return a;
-    }
-
-    function toast(title, msg){
-      const t = $("#toast");
-      $("#toastTitle").textContent = title;
-      $("#toastMsg").textContent = msg;
-      t.classList.add("show");
-      clearTimeout(window.__toastTimer);
-      window.__toastTimer = setTimeout(()=>t.classList.remove("show"), 2600);
-    }
-    $("#toastClose").addEventListener("click", ()=>$("#toast").classList.remove("show"));
-
-    /***********************
-     * PROGRESSO (localStorage)
-     ***********************/
-    const STORE_KEY = "aedes_platform_v1";
-    const defaultState = {
-      read: { inicio:false, identidade:false, taxonomia:false, filogenia:false, sistematica:false, chave:false, ciclo:false, galeria:false },
-      quiz: { key:null, life:null, anat:null } // % scores
-    };
-
-    function loadState(){
-      try{
-        const raw = localStorage.getItem(STORE_KEY);
-        if(!raw) return structuredClone(defaultState);
-        const obj = JSON.parse(raw);
-        return {
-          ...structuredClone(defaultState),
-          ...obj,
-          read: { ...structuredClone(defaultState.read), ...(obj.read||{}) },
-          quiz: { ...structuredClone(defaultState.quiz), ...(obj.quiz||{}) }
-        };
-      }catch(e){
-        return structuredClone(defaultState);
-      }
-    }
-    function saveState(){
-      localStorage.setItem(STORE_KEY, JSON.stringify(state));
-      renderKPIs();
-    }
-    let state = loadState();
-
-    function progressPercent(){
-      const vals = Object.values(state.read);
-      const done = vals.filter(Boolean).length;
-      return Math.round((done/vals.length)*100);
-    }
-
-    function quizAverage(){
-      const vals = Object.values(state.quiz).filter(v => typeof v === "number");
-      if(!vals.length) return null;
-      const avg = vals.reduce((a,b)=>a+b,0)/vals.length;
-      return Math.round(avg);
-    }
-
-    function renderKPIs(){
-      $("#kpiProgress").textContent = progressPercent() + "%";
-      const qa = quizAverage();
-      $("#kpiQuiz").textContent = (qa===null ? "—" : qa + "%");
-    }
-
-    /***********************
-     * NAV ACTIVE + MARK READ
-     ***********************/
-    const sections = $$(".content [id]");
     const navLinks = $$("#nav a");
 
     function setActiveNav(hash){
@@ -1008,7 +669,6 @@
     }
 
     function currentSectionId(){
-      // detect most visible section among main modules in nav
       const ids = navLinks.map(a => a.dataset.sec);
       let best = { id:"inicio", score:-Infinity };
       ids.forEach(id=>{
@@ -1016,7 +676,6 @@
         if(!el) return;
         const r = el.getBoundingClientRect();
         const vh = window.innerHeight || document.documentElement.clientHeight;
-        // score based on how close top is to 100px and visible height
         const visible = Math.max(0, Math.min(r.bottom, vh) - Math.max(r.top, 0));
         const dist = Math.abs(r.top - 90);
         const score = visible - dist*0.25;
@@ -1033,7 +692,6 @@
 
     navLinks.forEach(a=>{
       a.addEventListener("click", (e)=>{
-        // smooth scroll
         e.preventDefault();
         const id = a.dataset.sec;
         const el = document.getElementById(id);
@@ -1044,60 +702,9 @@
       });
     });
 
-    $("#btnMarkRead").addEventListener("click", ()=>{
-      const id = currentSectionId();
-      if(state.read[id] === true){
-        toast("Já marcado", "Esta seção já está como lida.");
-        return;
-      }
-      state.read[id] = true;
-      saveState();
-      toast("Marcado como lida", "Seção: " + id);
-    });
-
-  
-    /***********************
-     * STARTUP
-     ***********************/
-    function hydrateReadFromHash(){
-      const hash = (location.hash || "#inicio");
-      setActiveNav(hash);
-    }
-
-    function markReadStyling(){
-      // optional: visually mark read sections in nav by dimming dot etc (keep simple)
-      navLinks.forEach(a=>{
-        const id = a.dataset.sec;
-        const done = !!state.read[id];
-        const ico = $(".ico", a);
-        ico.style.opacity = done ? "1" : "0.95";
-        ico.style.borderColor = done ? "rgba(34,197,94,.34)" : "rgba(255,255,255,.14)";
-        ico.style.background = done ? "rgba(34,197,94,.12)" : "rgba(255,255,255,.05)";
-      });
-    }
-
-    function init(){
-      setImagePaths();
-      renderKPIs();
-      hydrateReadFromHash();
-      markReadStyling();
-      QuizEngine.init();
-
-      // Update nav on load & when hash changes
-      window.addEventListener("hashchange", hydrateReadFromHash);
-
-      // Mark read styling updates when state changes
-      const _saveState = saveState;
-      saveState = function(){
-        _saveState();
-        markReadStyling();
-      };
-
-      // First scroll calc
-      onScroll();
-    }
-
-    init();
+    // startup
+    setActiveNav(location.hash || "#inicio");
+    onScroll();
   </script>
 </body>
 </html>
